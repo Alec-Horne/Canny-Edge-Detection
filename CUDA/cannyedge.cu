@@ -151,7 +151,7 @@ __global__ void kernel_gaussian_blur(unsigned char* device_input_data2, unsigned
 			val += device_input_data2[imageY * width + imageX] * fmat[filterY][filterX];
 		}
 
-	/* Truncate to 0 or 255
+	/* Truncate to 0 or 255 */
 	device_output_data[y * width + x] = device_min(device_max(int(factor * val + 1), 0), 255);
 }
 
@@ -200,7 +200,7 @@ __global__ void kernel_sobel_filter(unsigned char* device_input_data2, unsigned 
 	
 	float angle = atan2(G_y, G_x);
 
-	// if negative, add 2*pi mod 2*pi for value
+	/* If negative, add 2*pi mod 2*pi for value */
 	if (angle < 0) {
 		angle = fmod((angle + 2 * 3.14159), (2 * 3.14159));
 	}
@@ -309,8 +309,8 @@ __global__ void kernel_hysteresis_thresholding(unsigned char* device_input_data2
 	float lowThresh = 35;
 	float highThresh = 70;
 
-	// These variables are offset by one to avoid seg. fault errors
-    // As such, this kernel ignores the outside ring of pixels
+	/* These variables are offset by one to avoid seg. fault errors
+       As such, this kernel ignores the outside ring of pixels */
 	int pos = y * width + x;
 
     unsigned char magnitude = device_input_data2[pos];
